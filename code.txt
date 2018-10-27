@@ -1,0 +1,21 @@
+rgb = imread('F:\Development\MATLAB Codes\ImgProcBrainTumour\Images\img1.jpg');     %Reading image
+gray = rgb2gray(rgb);                                                               %Converting to Gray Scale                             
+
+kernel1 = -1 * ones(3)/9;
+kernel1(2,2) = 8/9
+
+i = imfilter(single(gray), kernel1);                                       %Applying High Pass Filter
+
+
+med_fil = medfilt2(i);                                                     %Applying Median Filter to the gray scale image
+                                                                           %Enhances the quality of the image
+                                                                           
+                                                                           
+T = graythresh(med_fil)                                                    % find the threshold for input image
+S = imbinarize(med_fil,T)                                                  % Segment the image using threshold segmentation
+
+
+%L = watershed(S);
+%Lrgb = label2rgb(S);                                                       %Watershed Segmentation
+
+imshow(S)
